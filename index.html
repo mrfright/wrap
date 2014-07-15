@@ -1,0 +1,132 @@
+<!doctype html>
+<html>
+<head>
+  <title>WRAP | faehnri.ch</title>
+  <link href="style.css" rel="stylesheet"></link>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script type="text/javascript" src="wrap.js"></script>
+</head>
+<body>
+  <div id="head_opacity">
+    <div id="head_black_back">
+  <div id="headline">
+    <div class="container">
+      <header>
+        <h1>WRAP - Web Register Assembly Programming</h1>
+        <p>A web version of <a href="http://sites.tufts.edu/rodrego/">Daniel Dennett's RAP machine.</a></p>
+      </header>
+      <div id="blurb">
+        <p>The RAP language has three instructions:</p>
+        <ul>
+          <li>INC: increment a register then go to another instruction.  The syntax is <br /><code>INC [register] [instruction]</code></li>
+          <li>DEB: decrement a register and go to another instruction, or if the register is zero and you can't decrement then go to a different instruction.  <br /><code>DEB [register] [instruction] [branch instruction if zero]</code></li>
+          <li>END: halt the program</li>
+        </ul>
+        <p>Execution begins at instruction 0.  Play executes the program until it reaches an END (watch out for infinite loops!)</p>
+        <p>Step executes one instruction at a time.  Restart sets the machine to it's initial state, your instructions will still be there, it just gets rid of the existing register values and sets the program to run at instruction 0 again.</p>
+        <div id="head_in">
+          </div>
+      </div>
+      <br>
+    </div>
+  </div>
+    </div>
+  </div>
+  <div id="section1">
+    <div class="container">
+  <div id="code">
+      <h2>Code</h2>
+      <p>Write the program here.</p>
+    <p id="reset">Restart to start over again</p>
+    <div id="controls">
+      <div id="control_left">
+        <div id="play_button" class="button" onclick="play();">play</div>
+        <div id="step_button" class="button" onclick="step();">step</div>
+      </div>
+      <div id="control_right">
+        <div id="stop_button" class="button">stop</div>
+        <div id="restart_button" class="button" onclick="restart()">restart</div>
+      </div>
+      <br/>
+    </div>
+      
+
+<div id="instructions">
+  <!--
+  <div id="instruction1" class="instruction top_instruction">
+    <div class="instructionNumber">0</div>
+    <div class="instructionType">
+      <FORM NAME="myform">
+        <SELECT NAME="mylist">
+          <OPTION VALUE="m1">DEB
+          <OPTION VALUE="m2">INC
+          <OPTION VALUE="m3">END
+        </SELECT>
+      </FORM>
+    </div>
+    <input class="reg" type="text" />
+    <input class="reg" type="text" />
+    <input class="reg" type="text" />
+  </div>
+
+  <div id="instruction1" class="instruction">
+    <div class="instructionNumber">1</div>
+    <div class="instructionType">
+      <FORM NAME="myform">
+        <SELECT NAME="mylist">
+          <OPTION VALUE="m1">DEB
+          <OPTION VALUE="m2">INC
+          <OPTION VALUE="m3">END
+        </SELECT>
+      </FORM>
+    </div>
+    <input class="reg" type="text" />
+    <input class="reg" type="text" />
+    <input class="reg" type="text" />
+  </div>
+  -->
+  
+</div>
+    
+<div id="add_instruction" class="button" onclick="add_instruction();">Add Instruction +</div>
+
+  </div>
+  <div id="registers">
+      <h2>Registers</h2>
+      <p>The register values are here.</p>
+
+    <div id="reg_box">
+      <!--<div class="register top_register" id="register_1"><div class="register_number"></div><input class="reg_val" id="reg_val_1" type="text" /></div>
+      <div class="register" id="register_2"><div class="register_number"></div><input class="reg_val" id="reg_val_2" type="text" /></div>
+    --></div> 
+<div id="add_instruction" class="button" onclick="add_register();">Add Register +</div>
+  </div>
+      </div>
+    <br />
+    </div>
+  <div id="section3">
+    <div class="container">
+      <h2>Examples</h2>
+      <h3>Addition</h3>
+      <p>This makes a loop to decrement a register, increment a register.  If we can't decrement because zero, we've taken all from that register and added to the other, so branch to end</p>
+      <h4>Registers</h4>
+      <p>Register 0 with your value, register 1 with the other value.  The result will be in register 1.</p>
+      <h4>Code</h4>
+      <div id="mycode">
+      <code>
+DEB 0 1 2<br />
+INC 1 0<br />
+END
+      </code>
+        </div>
+      </div>
+  </div>
+  <div id="footer">
+    <div class="container">
+      <p><a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">WRAP Web Register Assembly Programming</span>, Copyright (c) 2014 <a xmlns:cc="http://creativecommons.org/ns#" href="http://faehnri.ch/" property="cc:attributionName" rel="cc:attributionURL">Eric Faehnrich</a>, is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.</p>
+      <p>Web page design based on Google's <a href="https://developers.google.com/web/fundamentals/getting-started/your-first-multi-screen-site/responsive">Web Fundamentals</a>
+      </p>
+    </div>
+  </div>
+</body>
+</html>
