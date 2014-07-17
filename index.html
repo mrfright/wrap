@@ -108,7 +108,7 @@
     <div class="container">
       <h2>Examples</h2>
       <h3>Addition</h3>
-      <p>This makes a loop to decrement a register, increment a register.  If we can't decrement because zero, we've taken all from that register and added to the other, so branch to end</p>
+      <p>This makes a loop to decrement a register, increment a register.  If we can't decrement because zero, we've taken all from that register and added to the other, so branch to end.</p>
       <h4>Registers</h4>
       <p>Register 0 with your value, register 1 with the other value.  The result will be in register 1.</p>
       <h4>Code</h4>
@@ -119,13 +119,28 @@ INC 1 0<br />
 END
       </code>
         </div>
+		<h3>Move</h3>
+      <p>Like addition, but zeroes out a register, then adds a another register to this one.</p>
+      <h4>Registers</h4>
+      <p>Register 0 will get zeroed out then the contents of register 1 will be moved to it.</p>
+      <h4>Code</h4>
+      <div id="mycode">
+      <code>
+DEB 0 0 1<br />
+DEB 1 2 3<br />
+INC 0 1<br />
+END
+      </code>
+        </div>
       </div>
   </div>
   <div id="footer">
     <div class="container">
       <p><a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">WRAP Web Register Assembly Programming</span>, Copyright (c) 2014 <a xmlns:cc="http://creativecommons.org/ns#" href="http://faehnri.ch/" property="cc:attributionName" rel="cc:attributionURL">Eric Faehnrich</a>, is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.</p>
+      <p>The source code of WRAP is available on <a href="https://github.com/mrfright/wrap">GitHub</a>.  Tell me complaints, suggestions, annoyances, or ways to improve at Twitter <a href="https://twitter.com/faehnrich">@faehnrich</a> or email <a href="mailto:eric@faehnri.ch">eric@faehnri.ch</a>.</p>
       <p>Web page design based on Google's <a href="https://developers.google.com/web/fundamentals/getting-started/your-first-multi-screen-site/responsive">Web Fundamentals</a>
       </p>
+      <p>The barely-recognizable picture in the background of the header at the top is a picture I took of Cleveland's <a href="http://www.westsidemarket.org/">West Side Market</a>.</p>
     </div>
   </div>
 </body>
