@@ -114,19 +114,6 @@ document.addEventListener('DOMContentLoaded', function () {
   restart();
 });
 
-/*
-<div id="reg_box">
-  <div class="register top_register" id="reg1">
-    <div class="register_number"></div>
-    <input class="reg_val" id="reg_val_1" type="text" />
-  </div>
-  <div class="register" id="reg2">
-    <div class="register_number"></div>
-    <input class="reg_val" id="reg_val_2" type="text" />
-  </div>
-</div>
-*/
-
 /*make new register by getting one larger than largest reg number*/
 var biggest_reg = -1;
 var add_register = function() {
@@ -144,7 +131,6 @@ var get_register = function(reg_num) {
     //alert('found reg');
   }
   else{
-    //alert('didnt find reg');
     reg = document.createElement('div');
     add_class(reg, 'register');
     if(firstReg){
@@ -170,9 +156,11 @@ var get_register = function(reg_num) {
 
 
 var valid_instruction = function(instruction_num) {
-  var instructions = document.getElementById('instructions');
-  var inst = instructions.querySelectorAll('#instruction'+instruction_num)[0];
-  if(inst){
+  var tok = editor.session.getLine(instruction_num).trim().split(' ');
+
+  if(tok[0].toUpperCase() === 'END' 
+     || tok[0].toUpperCase() === 'INC' 
+     || tok[0].toUpperCase() === 'DEB'){
     return true;
   }
   else{
@@ -182,15 +170,15 @@ var valid_instruction = function(instruction_num) {
 
 
 var uncolor_instruction = function(instruction_num) {
-  var current_instruction = document.getElementById('instruction'+instruction_num);
+  /*var current_instruction = document.getElementById('instruction'+instruction_num);
   if(current_instruction){  
     current_instruction.style.backgroundColor = 'white';
-  }
+  }*/
 };
 
 var color_instruction = function(instruction_num) {
-  var current_instruction = document.getElementById('instruction'+instruction_num);
-  current_instruction.style.backgroundColor = 'red';
+  //var current_instruction = document.getElementById('instruction'+instruction_num);
+  //current_instruction.style.backgroundColor = 'red';
 };
 
 
@@ -203,20 +191,35 @@ var step = function(){
   
   /*fetch*/
   //if active_instruction is a valid instruction number, set that instruction to not active color (if valid)
-  uncolor_instruction(active_instruction);
+  //uncolor_instruction(active_instruction);
   
   active_instruction = program_counter;
   
   //color active instruction(if valid)
-  color_instruction(active_instruction);
+  //color_instruction(active_instruction);
   
   /*decode*/
-  var current_instruction = document.getElementById('instruction'+active_instruction);
-  var instruction_type = current_instruction.querySelectorAll('.instructionType form select');
-  var instruction_index = instruction_type[0].selectedIndex;
-  var instruction_register = +current_instruction.querySelectorAll('#instruction_register_value')[0].value;
-  var instruction_instruction = +current_instruction.querySelectorAll('#instruction_instruction_value')[0].value;
-  var instruction_branch = +current_instruction.querySelectorAll('#instruction_branch_value')[0].value;
+  var instruction = editor.session.getLine(active_instruction);
+  
+  //TODO if instruction empty string (or null to be safe) alert no instruction, stop
+  
+  var tok = instruction.trim().split(' ');
+
+  //editor.session.highlightLines(active_instruction);
+  //var instruction_type = current_instruction.querySelectorAll('.instructionType form select');
+  var instruction_index = -1;
+  if(tok[0].toUpperCase() === 'END'){
+    instruction_index = 2;
+  }
+  else if(tok[0].toUpperCase() === 'INC'){
+    instruction_index = 1;
+  }
+  else if(tok[0].toUpperCase() === 'DEB'){
+    instruction_index = 0;
+  }
+  var instruction_register = +tok[1];
+  var instruction_instruction = +tok[2];
+  var instruction_branch = +tok[3];
   
   /*execute*/
   switch(instruction_index){
@@ -229,24 +232,25 @@ var step = function(){
         var reg_input = reg.querySelectorAll('input')[0];
         var reg_int = +reg_input.value;
         reg_input.value = reg_int+1;
-        program_counter = instruction_instruction;
+        program_counter = instruction_instruction-1;//-1 since shown line numbers start at 1, but zero-indexed array
         /*set pc*/
         break;
       case 0://DEB
         var reg = get_register(instruction_register);
         var reg_input = reg.querySelectorAll('input')[0];
         if(reg_input.value == 0){
-          program_counter = instruction_branch;
+          program_counter = instruction_branch-1;//-1 since shown line numbers start at 1, but zero-indexed array
         }
         else {
           var reg_int = +reg_input.value;
           reg_input.value = reg_int-1;
-          program_counter = instruction_instruction;
+          program_counter = instruction_instruction-1;//-1 since shown line numbers start at 1, but zero-indexed array
         }
         /*set pc*/
         break;
       default:
-        alert('Unkown instruction '+instruction_index);
+        alert('Unkown instruction at line '+active_instruction+': "'+instruction+'"');
+      
   }
   
   
@@ -261,15 +265,27 @@ var step = function(){
     alert("bad instruction number '"+program_counter+"'");
     program_counter = -1; 
   }
+
   
   if(program_counter === -1 || active_instruction === -1) {
     document.getElementById('reset').style.display = 'block';
     return;
-  }  
+  } 
+  //editor.session.highlightLines(active_instruction, active_instruction, "ace_line", false);
+  editor.session.removeMarker(highlightId);
+  highlightId = editor.session.highlightLines(program_counter).id;
 };
 
+var highlightId;
+
 var play = function() {
+  try{
   while(program_counter != -1){
+    //check break point
     step();
+  }
+  }
+  catch(e){
+    alert('exception: '+e.message);
   }
 };

@@ -12,7 +12,8 @@
   <div id="headline">
     <div class="container">
       <header>
-        <h1>WRAP - Web Register Assembly Programming</h1>
+        <h1>WRAP</h1>
+        <h2>Web Register Assembly Programming</h2>
         <p>A web version of <a href="http://sites.tufts.edu/rodrego/">Daniel Dennett's RAP machine.</a></p>
       </header>
       <div id="blurb">
@@ -23,7 +24,7 @@
           <li>END: halt the program</li>
         </ul>
         <p>Execution begins at instruction 0.  Play executes the program until it reaches an END (watch out for infinite loops!)</p>
-        <p>Step executes one instruction at a time.  Restart sets the machine to it's initial state, your instructions will still be there, it just gets rid of the existing register values and sets the program to run at instruction 0 again.</p>
+        <p>Step executes one instruction at a time.  The highlighted instruction is the next one about to be executed.  Restart sets the machine to it's initial state, your instructions will still be there, it just gets rid of the existing register values and sets the program to run at instruction 0 again.</p>
         <div id="head_in">
           </div>
       </div>
@@ -49,56 +50,31 @@
       </div>
       <br/>
     </div>
-      
 
-<div id="instructions">
-  <!--
-  <div id="instruction1" class="instruction top_instruction">
-    <div class="instructionNumber">0</div>
-    <div class="instructionType">
-      <FORM NAME="myform">
-        <SELECT NAME="mylist">
-          <OPTION VALUE="m1">DEB
-          <OPTION VALUE="m2">INC
-          <OPTION VALUE="m3">END
-        </SELECT>
-      </FORM>
-    </div>
-    <input class="reg" type="text" />
-    <input class="reg" type="text" />
-    <input class="reg" type="text" />
-  </div>
-
-  <div id="instruction1" class="instruction">
-    <div class="instructionNumber">1</div>
-    <div class="instructionType">
-      <FORM NAME="myform">
-        <SELECT NAME="mylist">
-          <OPTION VALUE="m1">DEB
-          <OPTION VALUE="m2">INC
-          <OPTION VALUE="m3">END
-        </SELECT>
-      </FORM>
-    </div>
-    <input class="reg" type="text" />
-    <input class="reg" type="text" />
-    <input class="reg" type="text" />
-  </div>
-  -->
-  
-</div>
-    
-<div id="add_instruction" class="button" onclick="add_instruction();">Add Instruction +</div>
+    <style type="text/css" media="screen">
+    #instructions { 
+        height: 300px;
+        width:  100%;
+    }
+</style>
+    <br />
+<div id="instructions">DEB 0 1 2
+DEB 1 3 4
+INC 0 2
+END </div>
+    <script src="src-min/ace.js" type="text/javascript" charset="utf-8"></script>
+<script>
+    var editor = ace.edit("instructions");
+    editor.setTheme("ace/theme/monokai");
+    //editor.getSession().setMode("ace/mode/javascript");
+</script>
 
   </div>
   <div id="registers">
       <h2>Registers</h2>
       <p>The register values are here.</p>
 
-    <div id="reg_box">
-      <!--<div class="register top_register" id="register_1"><div class="register_number"></div><input class="reg_val" id="reg_val_1" type="text" /></div>
-      <div class="register" id="register_2"><div class="register_number"></div><input class="reg_val" id="reg_val_2" type="text" /></div>
-    --></div> 
+    <div id="reg_box"></div> 
 <div id="add_instruction" class="button" onclick="add_register();">Add Register +</div>
   </div>
       </div>
@@ -114,8 +90,8 @@
       <h4>Code</h4>
       <div id="mycode">
       <code>
-DEB 0 1 2<br />
-INC 1 0<br />
+DEB 0 2 3<br />
+INC 1 1<br />
 END
       </code>
         </div>
@@ -126,10 +102,10 @@ END
       <h4>Code</h4>
       <div id="mycode">
       <code>
-DEB 0 0 1<br />
-DEB 1 2 3<br />
-INC 0 1<br />
-END
+DEB 0 1 2<br />
+DEB 1 3 4<br />
+INC 0 2<br />
+END 
       </code>
         </div>
       </div>
